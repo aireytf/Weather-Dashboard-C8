@@ -1,0 +1,44 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .weather-header {
+    background-color: #210a8a;
+    height: 60px;
+    text-align:center;
+  }
+  
+  .weather-header h1 {
+    margin: 0;
+    color: white;
+  }
+
+  .row {
+    margin-left: 20px;
+  }
+
+  .search-button {
+    margin: 5px;
+    width: 160px;
+    background-color: rgb(123, 123, 205);
+  }
+  
+
+  #today {
+    margin-left: 20px;
+  }
+  
+
+  .forecast-card {
+    border: 1px solid #323131;
+    margin: 5px;
+    padding: 10px;
+    display: inline-block;
+    background-color: #2e3549;
+  }
+ 
+  .forecast-card p {
+    color: white;
+  }
