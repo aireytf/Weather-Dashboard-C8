@@ -1,4 +1,3 @@
-
 // Event listener for search form
 document.getElementById('search-form').addEventListener('submit', function (event) {
    // Prevent the default form submission behavior
@@ -36,6 +35,24 @@ fetch(apiUrlData)
     console.error('Error fetching current weather:', error);
   });
 
+// Fetch 5-day forecast data
+fetch(apiUrlForecast)
+.then(response => {
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json();
+})
+.then(data => {
+  console.log('5-Day forecast data:', data);
+  // Extract data for every 8th entry to get daily forecast
+  const fiveDayForecast = data.list.filter((item, index) => index % 8 === 0);
+  displayFiveDayForecast(fiveDayForecast);
+})
+.catch(error => {
+  console.error('Error fetching 5-day forecast:', error);
+});
+
 });
 
 // Function to display current weather data
@@ -72,6 +89,56 @@ function displayCurrentWeather(weatherData) {
     cityNameElement.appendChild(humidityElement);
   }
 
+// Function to display 5-day forecast data
+function displayFiveDayForecast(fiveDayForecast) {
+    const forecastSection = document.getElementById('forecast');
+    forecastSection.innerHTML = '<h2>5-Day Forecast</h2>';
+  
+    // Iterate through each day in the forecast data
+    fiveDayForecast.forEach(day => {
+      const forecastCard = document.createElement('div');
+      forecastCard.classList.add('forecast-card');
+  
+      // Display relevant data for each day
+      const dateElement = document.createElement('p');
+      dateElement.textContent = getCurrentDate(day.dt_txt);
+      forecastCard.appendChild(dateElement);
+  
+      // Create and append weather icon element
+      const iconElement = document.createElement('img');
+      const iconCode = day.weather[0].icon;
+      iconElement.src = `https://openweathermap.org/img/w/${iconCode}.png`;
+      iconElement.alt = `Weather Icon: ${day.weather[0].description}`;
+      forecastCard.appendChild(iconElement);
+  
+      // Calculate temperature in Celsius and display
+      const celsius = day.main.temp - 273.15;
+      const temperatureElement = document.createElement('p');
+      temperatureElement.textContent = `Temperature: ${celsius.toFixed(2)} °C`;
+      forecastCard.appendChild(temperatureElement);
+  
+      // Display weather description
+      const descriptionElement = document.createElement('p');
+      descriptionElement.textContent = `Weather: ${day.weather[0].description}`;
+      forecastCard.appendChild(descriptionElement);
+  
+      // Display wind speed in mph
+      const windSpeedInMph = (day.wind.speed * 2.23694).toFixed(2);
+      const windSpeedElement = document.createElement('p');
+      windSpeedElement.textContent = `Wind Speed: ${windSpeedInMph} mph`;
+      forecastCard.appendChild(windSpeedElement);
+  
+      // Display humidity percentage
+      const humidityElement = document.createElement('p');
+      humidityElement.textContent = `Humidity: ${day.main.humidity}%`;
+      forecastCard.appendChild(humidityElement);
+  
+      // Append the forecast card to the forecast section
+      forecastSection.appendChild(forecastCard);
+    });
+
+}
+
 // Function to get the current date in the specified format
 function getCurrentDate(dateTimeString) {
     const currentDate = new Date();
@@ -85,4 +152,3 @@ function getCurrentDate(dateTimeString) {
   
     return `${day}/${month}/${year}`;
   }
-  
