@@ -13,7 +13,7 @@ My finished application was to resemble the following Demo image and meet the su
 
 Acceptance Criteria:- 
 
-Create a weather dashboardwith form inputs.
+Create a weather dashboard with form inputs:
 - When a user searches for a city they are presented with current and future conditions for that city and that city is added to the search history
 - When a user views the current weather conditions for that city they are presented with:
    - The city name
@@ -44,7 +44,7 @@ To view my work on this challenge, you can review the sections of this repositor
 
 ## Credits
 
-I researched some elements needed to write this JavaScript code, utlising such resources as w3schools.com, mdn web docs, and stackoverflow.com
+I researched some elements needed to write this code, utlising such resources as w3schools.com, mdn web docs, and stackoverflow.com
 
 ## License
 
