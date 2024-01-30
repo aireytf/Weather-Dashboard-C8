@@ -38,6 +38,51 @@ fetch(apiUrlData)
 
 });
 
-
+// Function to display current weather data
+function displayCurrentWeather(weatherData) {
+    const cityNameElement = document.getElementById('today');
+    cityNameElement.innerHTML = `<h2>${weatherData.name} (${getCurrentDate()})</h2>`;
+    // Append weather icon element
+    const iconElement = document.createElement('img');
+    const iconCode = weatherData.weather[0].icon;
+    iconElement.src = `https://openweathermap.org/img/w/${iconCode}.png`;
+    iconElement.alt = `Weather Icon: ${weatherData.weather[0].description}`;
+    cityNameElement.appendChild(iconElement);
   
+    // Convert temp to celsius from kelvin and display
+    const celsius = weatherData.main.temp - 273.15;
+    const temperatureElement = document.createElement('p');
+    temperatureElement.textContent = `Temperature: ${celsius.toFixed(2)} °C`;
+    cityNameElement.appendChild(temperatureElement);
+  
+    // Display weather description summary
+    const descriptionElement = document.createElement('p');
+    descriptionElement.textContent = `Weather: ${weatherData.weather[0].description}`;
+    cityNameElement.appendChild(descriptionElement);
+  
+    // Converting wind speed to miles per hour and display
+    const windSpeedInMph = (weatherData.wind.speed * 2.23694).toFixed(2);
+    const windSpeedElement = document.createElement('p');
+    windSpeedElement.textContent = `Wind Speed: ${windSpeedInMph} mph`;
+    cityNameElement.appendChild(windSpeedElement);
+  
+    // Display percentage humidity
+    const humidityElement = document.createElement('p');
+    humidityElement.textContent = `Humidity: ${weatherData.main.humidity}%`;
+    cityNameElement.appendChild(humidityElement);
+  }
+
+// Function to get the current date in the specified format
+function getCurrentDate(dateTimeString) {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    let month = currentDate.getMonth() + 1;
+    let day = currentDate.getDate();
+  
+    // Pad month and day with leading zeros if needed
+    month = month < 10 ? `0${month}` : month;
+    day = day < 10 ? `0${day}` : day;
+  
+    return `${day}/${month}/${year}`;
+  }
   
