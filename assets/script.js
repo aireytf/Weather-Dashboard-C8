@@ -14,6 +14,7 @@ document.getElementById('search-form').addEventListener('submit', function (even
 // Define the API key and URLs for current weather and forecast data retrieval
 const apiKey = '7ff53766b4708fd0cfee8f689f8f7438';
 const apiUrlData = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`;
+const apiUrlForecast = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}`;
 
 // Fetch current weather data
 fetch(apiUrlData)
@@ -99,36 +100,30 @@ function displayFiveDayForecast(fiveDayForecast) {
       const forecastCard = document.createElement('div');
       forecastCard.classList.add('forecast-card');
   
-      // Display relevant data for each day
       const dateElement = document.createElement('p');
       dateElement.textContent = getCurrentDate(day.dt_txt);
       forecastCard.appendChild(dateElement);
   
-      // Create and append weather icon element
       const iconElement = document.createElement('img');
       const iconCode = day.weather[0].icon;
       iconElement.src = `https://openweathermap.org/img/w/${iconCode}.png`;
       iconElement.alt = `Weather Icon: ${day.weather[0].description}`;
       forecastCard.appendChild(iconElement);
   
-      // Calculate temperature in Celsius and display
       const celsius = day.main.temp - 273.15;
       const temperatureElement = document.createElement('p');
       temperatureElement.textContent = `Temperature: ${celsius.toFixed(2)} °C`;
       forecastCard.appendChild(temperatureElement);
   
-      // Display weather description
       const descriptionElement = document.createElement('p');
       descriptionElement.textContent = `Weather: ${day.weather[0].description}`;
       forecastCard.appendChild(descriptionElement);
   
-      // Display wind speed in mph
       const windSpeedInMph = (day.wind.speed * 2.23694).toFixed(2);
       const windSpeedElement = document.createElement('p');
       windSpeedElement.textContent = `Wind Speed: ${windSpeedInMph} mph`;
       forecastCard.appendChild(windSpeedElement);
   
-      // Display humidity percentage
       const humidityElement = document.createElement('p');
       humidityElement.textContent = `Humidity: ${day.main.humidity}%`;
       forecastCard.appendChild(humidityElement);
