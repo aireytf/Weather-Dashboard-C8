@@ -28,6 +28,9 @@ body {
 
   #today {
     margin-left: 20px;
+    border: 1px solid #323131;
+    margin: 5px;
+    padding: 10px;
   }
   
 
